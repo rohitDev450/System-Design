@@ -1,1 +1,11 @@
+Let me walk you through my URL shortener system design. The goal here is to provide a highly available, low-latency service that can scale to millions of requests globally.
 
+When a user enters a URL, the request first goes through Route 53 DNS, which routes them to the nearest region to reduce latency. The traffic then passes through a security group/firewall for protection. Before hitting the application logic, we also handle JWT authentication and validation to ensure secure API calls.
+
+The request lands on stateless application servers, which are behind an Auto Scaling Group with Horizontal Pod Autoscaler. This setup allows the service to handle sudden spikes in traffic without downtime. For performance, the app server first checks Redis cache for the short→long URL mapping. If it’s a cache hit, we can return in just a few milliseconds. Otherwise, we fall back to the database layer.
+
+For persistence, I’ve separated SQL for structured data like URL mappings and user info, and NoSQL for logs and high-volume events. To handle scale, the DB is sharded and replicated across regions, ensuring both availability and fault tolerance. This architecture allows us to support millions of URLs while maintaining durability.
+
+Finally, the entire system is monitored with CloudWatch, which tracks key metrics like latency, request throughput, cache hit ratio, and error rates. Alerts are configured for anomalies so the system can self-heal or notify engineers quickly.
+
+Overall, this design balances performance, scalability, security, and reliability. It ensures global low-latency redirects, protects against abuse, and is built for both horizontal scale and operational visibility.
