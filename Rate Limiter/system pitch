@@ -1,0 +1,5 @@
+
+Rate Limiter
+
+I’d use a **Token Bucket algorithm** with Redis as a distributed cache to maintain counters per user/IP. Each API server checks Redis atomically before processing. Redis cluster ensures scalability and consistency. For example, 100 requests per minute → we store a bucket of 100 tokens per user and refill at ~1.67 tokens/sec. If bucket empty → reject with 429. This setup works across multiple servers and can handle millions of requests/sec with low latency.
+
