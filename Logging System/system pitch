@@ -1,0 +1,18 @@
+
+"I’ve designed a highly scalable and resilient centralized logging and monitoring system.
+
+Logs from clients and application servers are collected through lightweight log forwarders like Fluent Bit or CloudWatch agents. These logs are sent into a processing layer that runs on EC2/ECS with Auto Scaling Groups and Kubernetes HPA for elasticity. To handle traffic spikes, I’ve integrated Kafka/Kinesis as a buffer, ensuring no logs are lost during peak loads.
+
+From there, processed logs are routed to Elasticsearch for search, CloudWatch/Grafana for visualization, and Prometheus + SNS for real-time alerting. For compliance and cost efficiency, long-term retention is done in S3/Glacier with KMS encryption.
+
+This design ensures:
+
+Scalability through ASG + HPA
+
+Reliability with Kafka/Kinesis buffering
+
+Security with KMS encryption
+
+Observability via dashboards and alerts
+
+In short, this system guarantees that even at millions of log events per second, we achieve real-time visibility, cost-effective storage, and proactive incident response."_
