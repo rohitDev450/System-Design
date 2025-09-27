@@ -1,9 +1,0 @@
-Zero-Downtime Deployment (Blue-Green/Canary)
-
-"For zero-downtime deployments, I’d use Blue-Green or Canary strategy.
-
-In Blue-Green, I maintain two identical environments. The new version is deployed in Green while Blue handles traffic. After validation, I just update the Load Balancer to shift 100% traffic to Green. If something goes wrong, rollback is immediate by switching back to Blue.
-
-In Canary, I release to a small subset of users first. The Load Balancer routes 5–10% traffic to the new version, and I monitor system health using metrics, logs, and error rates. If stable, I progressively increase traffic to full rollout.
-
-This ensures continuous delivery with zero downtime, safe rollbacks, and improved reliability."_
